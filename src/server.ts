@@ -11,17 +11,21 @@ const sleep = (ms: number): Promise<void> =>
   });
 
 const bootstrapDatabase = async (): Promise<void> => {
-  const totalAttempts = Math.max(env.db_startup.retries, 1);
+  const finiteAttempts = Math.max(env.db_startup.retries, 1);
+  const totalAttempts = env.db_startup.require_on_startup ? finiteAttempts : Number.POSITIVE_INFINITY;
   const retryDelayMs = Math.max(env.db_startup.retry_delay_ms, 1000);
 
-  for (let attempt = 1; attempt <= totalAttempts; attempt += 1) {
+  let attempt = 1;
+  while (attempt <= totalAttempts) {
     try {
       await initializeDatabase();
-      console.info(`Database connected on attempt ${attempt}/${totalAttempts}`);
+      const label = Number.isFinite(totalAttempts) ? `${attempt}/${totalAttempts}` : `${attempt}`;
+      console.info(`Database connected on attempt ${label}`);
       return;
     } catch (error) {
-      const isLastAttempt = attempt === totalAttempts;
-      console.error(`Database connection attempt ${attempt}/${totalAttempts} failed:`, error);
+      const isLastAttempt = Number.isFinite(totalAttempts) && attempt === totalAttempts;
+      const label = Number.isFinite(totalAttempts) ? `${attempt}/${totalAttempts}` : `${attempt}`;
+      console.error(`Database connection attempt ${label} failed:`, error);
 
       if (isLastAttempt) {
         if (env.db_startup.require_on_startup) {
@@ -34,6 +38,7 @@ const bootstrapDatabase = async (): Promise<void> => {
       }
 
       await sleep(retryDelayMs);
+      attempt += 1;
     }
   }
 };

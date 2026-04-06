@@ -9,6 +9,7 @@ import { corsMiddleware } from './middlewares/cors.middleware.js';
 import { authMiddleware } from './middlewares/auth.middleware.js';
 import { roleMiddleware } from './middlewares/role.middleware.js';
 import courseRoutes from './modules/course/Course.routes.js';
+import { getDatabaseStatus } from './config/data-source.js';
 export const createApp = (): Express => {
   const app = express();
 
@@ -35,6 +36,18 @@ export const createApp = (): Express => {
       status: 'ok',
       message: 'Server is running',
       timestamp: new Date().toISOString(),
+    });
+  });
+
+  app.get('/health/startup', (_req, res) => {
+    const db = getDatabaseStatus();
+
+    res.json({
+      status: 'ok',
+      message: 'Startup diagnostics',
+      timestamp: new Date().toISOString(),
+      uptimeSeconds: Math.floor(process.uptime()),
+      database: db,
     });
   });
 

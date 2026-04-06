@@ -16,7 +16,7 @@
     "db:revert": "typeorm migration:revert -d dist/config/data-source.js",
     "seed:courses": "node dist/utils/seed-courses.js",
     "migration:generate": "tsx ./node_modules/typeorm/cli.js migration:generate -d src/config/data-source.ts src/migrations/AutoMigration",
-    "prod:start": "npm run db:migrate && npm run start"
+    "prod:start": "node scripts/prod-start.mjs"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
