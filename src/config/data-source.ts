@@ -8,6 +8,10 @@ import { AcademicRequirement } from '../entities/AcademicRequirement.entity.js';
 import { ApplicationFiling } from '../entities/ApplicationFiling.entity.js';
 
 const isProd = env.isProduction;
+const hasDatabaseUrl = Boolean(env.database_url);
+const shouldUseSslForUrl =
+  hasDatabaseUrl && !/[?&]sslmode=disable/i.test(env.database_url);
+const useSsl = isProd || shouldUseSslForUrl;
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -35,14 +39,14 @@ export const AppDataSource = new DataSource({
   migrationsRun: false,
 
   // ✅ Neon / managed Postgres typically needs SSL
-  ssl: isProd
+  ssl: useSsl
     ? {
         rejectUnauthorized: false,
       }
     : false,
 
   // Optional: stable under load / serverless-ish envs
-  extra: isProd
+  extra: useSsl
     ? {
         max: 10,
         connectionTimeoutMillis: 10_000,

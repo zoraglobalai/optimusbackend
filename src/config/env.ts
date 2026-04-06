@@ -10,6 +10,16 @@ const getEnv = (key: string, defaultValue?: string): string => {
   return value;
 };
 
+const parseNumberEnv = (key: string, defaultValue: number): number => {
+  const rawValue = process.env[key];
+  if (!rawValue) {
+    return defaultValue;
+  }
+
+  const parsedValue = Number.parseInt(rawValue, 10);
+  return Number.isNaN(parsedValue) ? defaultValue : parsedValue;
+};
+
 const nodeEnv = getEnv('NODE_ENV', 'development');
 const isProduction = nodeEnv === 'production';
 
@@ -28,6 +38,12 @@ export const env = {
     username: getEnv('DB_USERNAME', 'postgres'),
     password: process.env.DB_PASSWORD || '',
     database: getEnv('DB_DATABASE', 'optimus'),
+  },
+
+  db_startup: {
+    require_on_startup: getEnv('REQUIRE_DB_ON_STARTUP', 'false').toLowerCase() === 'true',
+    retries: parseNumberEnv('DB_STARTUP_RETRIES', 12),
+    retry_delay_ms: parseNumberEnv('DB_RETRY_DELAY_MS', 5000),
   },
 
   // JWT
