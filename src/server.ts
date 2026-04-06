@@ -10,6 +10,7 @@ const startServer = async (): Promise<void> => {
     // Initialize Database
     await initializeDatabase();
 
+    
     // Create and start app
     const app = createApp();
  server = app.listen(env.port, '0.0.0.0', () => {
