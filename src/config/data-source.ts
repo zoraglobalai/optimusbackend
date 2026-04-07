@@ -7,6 +7,7 @@ import { Scholarship } from '../entities/Scholarship.entity.js';
 import { AcademicRequirement } from '../entities/AcademicRequirement.entity.js';
 import { ApplicationFiling } from '../entities/ApplicationFiling.entity.js';
 
+
 type DatabaseConnectionState = 'disconnected' | 'connecting' | 'connected';
 
 type DatabaseRuntimeStatus = {
