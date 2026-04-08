@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Core Pages -->
+  <url>
+    <loc>https://www.optimusoverseasedu.com/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/about</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/contact</loc>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Study Pages -->
+  <url>
+    <loc>https://www.optimusoverseasedu.com/study-abroad</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/mbbs-abroad</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/language-training</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Courses -->
+  <url>
+    <loc>https://www.optimusoverseasedu.com/courses</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/courses/bachelors</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/courses/masters</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/courses/phd</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/courses/diploma</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/courses/certifications</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Services Main -->
+  <url>
+    <loc>https://www.optimusoverseasedu.com/services</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Services Details -->
+  <url>
+    <loc>https://www.optimusoverseasedu.com/services/psychometric-test</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/services/career-counselling</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/services/country-selection</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/services/course-university</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/services/admissions</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/services/scholarships</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/services/education-loan</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/services/documentation</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/services/student-visa</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/services/mock-visa</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/services/travel</loc>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/services/accommodation</loc>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.optimusoverseasedu.com/services/forex</loc>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>
