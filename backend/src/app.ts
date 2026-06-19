@@ -10,7 +10,7 @@ import { corsMiddleware } from './middlewares/cors.middleware.js';
 import { authMiddleware } from './middlewares/auth.middleware.js';
 import { roleMiddleware } from './middlewares/role.middleware.js';
 import courseRoutes from './modules/course/Course.routes.js';
-import { getDatabaseStatus } from './config/data-source.js';
+import { getDatabaseStatus, initializeDatabase } from './config/data-source.js';
 
 const require = createRequire(import.meta.url);
 const helmet = require('helmet') as (options?: Readonly<HelmetOptions>) => RequestHandler;
@@ -54,6 +54,15 @@ export const createApp = (): Express => {
       uptimeSeconds: Math.floor(process.uptime()),
       database: db,
     });
+  });
+
+  app.use('/api', async (_req, _res, next) => {
+    try {
+      await initializeDatabase();
+      next();
+    } catch (error) {
+      next(error);
+    }
   });
 
   // Auth Routes

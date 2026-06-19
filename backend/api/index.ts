@@ -1,31 +1,32 @@
-import { createApp } from '../src/app.js';
-import { initializeDatabase } from '../src/config/data-source.js';
+import type { Express } from 'express';
 
-const app = createApp();
+let appReady: Promise<Express> | null = null;
 
-let databaseReady: Promise<void> | null = null;
-
-const ensureDatabase = async (): Promise<void> => {
-  if (!databaseReady) {
-    databaseReady = initializeDatabase().catch(error => {
-      databaseReady = null;
-      throw error;
-    });
+const getApp = async (): Promise<Express> => {
+  if (!appReady) {
+    appReady = import('../src/app.js')
+      .then(({ createApp }) => createApp())
+      .catch(error => {
+        appReady = null;
+        throw error;
+      });
   }
 
-  await databaseReady;
+  return appReady;
 };
 
 export default async function handler(req: any, res: any): Promise<void> {
   try {
-    await ensureDatabase();
+    const app = await getApp();
     app(req, res);
   } catch (error) {
-    console.error('Failed to initialize database:', error);
-    res.status(503).json({
+    const message = error instanceof Error ? error.message : 'Unknown startup error';
+
+    console.error('Failed to initialize serverless function:', error);
+    res.status(500).json({
       success: false,
-      message: 'Service temporarily unavailable',
-      error: 'Database connection failed',
+      message: 'Serverless function failed to start',
+      error: message,
       timestamp: new Date().toISOString(),
     });
   }
