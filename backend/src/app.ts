@@ -1,8 +1,9 @@
 import 'reflect-metadata';
+import { createRequire } from 'node:module';
 import express, { Express } from 'express';
-import helmet from 'helmet';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
+import type helmetModule from 'helmet';
 import authRoutes from './modules/auth/auth.routes.js';
 import { errorHandler } from './middlewares/error.middleware.js';
 import { corsMiddleware } from './middlewares/cors.middleware.js';
@@ -10,6 +11,10 @@ import { authMiddleware } from './middlewares/auth.middleware.js';
 import { roleMiddleware } from './middlewares/role.middleware.js';
 import courseRoutes from './modules/course/Course.routes.js';
 import { getDatabaseStatus } from './config/data-source.js';
+
+const require = createRequire(import.meta.url);
+const helmet = require('helmet') as typeof helmetModule;
+
 export const createApp = (): Express => {
   const app = express();
 
