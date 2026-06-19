@@ -13,9 +13,27 @@ const getApp = async () => {
   return appReady;
 };
 
+const getRequestPath = req => {
+  const rawUrl =
+    req.headers?.['x-original-url'] ||
+    req.headers?.['x-rewrite-url'] ||
+    req.url ||
+    '/';
+
+  return new URL(rawUrl, 'https://localhost').pathname;
+};
+
+const sendJson = (res, statusCode, body) => {
+  res.statusCode = statusCode;
+  res.setHeader?.('content-type', 'application/json; charset=utf-8');
+  res.end(JSON.stringify(body));
+};
+
 export default async function handler(req, res) {
-  if (req.url === '/health/env') {
-    res.status(200).json({
+  const path = getRequestPath(req);
+
+  if (path === '/health/env') {
+    sendJson(res, 200, {
       status: 'ok',
       environment: {
         NODE_ENV: process.env.NODE_ENV || null,
@@ -29,8 +47,8 @@ export default async function handler(req, res) {
     return;
   }
 
-  if (req.url === '/' || req.url?.startsWith('/health')) {
-    res.status(200).json({
+  if (path === '/' || path === '/api/index' || path.startsWith('/health')) {
+    sendJson(res, 200, {
       status: 'ok',
       message: 'Serverless function is running',
       timestamp: new Date().toISOString(),
@@ -45,7 +63,7 @@ export default async function handler(req, res) {
     const message = error instanceof Error ? error.message : 'Unknown startup error';
 
     console.error('Failed to initialize serverless function:', error);
-    res.status(500).json({
+    sendJson(res, 500, {
       success: false,
       message: 'Serverless function failed to start',
       error: message,
