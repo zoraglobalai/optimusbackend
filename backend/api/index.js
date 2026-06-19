@@ -14,6 +14,21 @@ const getApp = async () => {
 };
 
 export default async function handler(req, res) {
+  if (req.url === '/health/env') {
+    res.status(200).json({
+      status: 'ok',
+      environment: {
+        NODE_ENV: process.env.NODE_ENV || null,
+        DATABASE_URL: Boolean(process.env.DATABASE_URL),
+        JWT_SECRET: Boolean(process.env.JWT_SECRET),
+        REFRESH_TOKEN_SECRET: Boolean(process.env.REFRESH_TOKEN_SECRET),
+        FRONTEND_URL: Boolean(process.env.FRONTEND_URL),
+      },
+      timestamp: new Date().toISOString(),
+    });
+    return;
+  }
+
   if (req.url === '/' || req.url?.startsWith('/health')) {
     res.status(200).json({
       status: 'ok',
