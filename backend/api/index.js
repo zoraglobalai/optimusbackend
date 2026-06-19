@@ -14,6 +14,15 @@ const getApp = async () => {
 };
 
 export default async function handler(req, res) {
+  if (req.url === '/' || req.url?.startsWith('/health')) {
+    res.status(200).json({
+      status: 'ok',
+      message: 'Serverless function is running',
+      timestamp: new Date().toISOString(),
+    });
+    return;
+  }
+
   try {
     const app = await getApp();
     app(req, res);
