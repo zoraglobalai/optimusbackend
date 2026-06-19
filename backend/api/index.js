@@ -1,10 +1,8 @@
-import type { Express } from 'express';
+let appReady = null;
 
-let appReady: Promise<Express> | null = null;
-
-const getApp = async (): Promise<Express> => {
+const getApp = async () => {
   if (!appReady) {
-    appReady = import('../src/app.js')
+    appReady = import('../dist/app.js')
       .then(({ createApp }) => createApp())
       .catch(error => {
         appReady = null;
@@ -15,7 +13,7 @@ const getApp = async (): Promise<Express> => {
   return appReady;
 };
 
-export default async function handler(req: any, res: any): Promise<void> {
+export default async function handler(req, res) {
   try {
     const app = await getApp();
     app(req, res);
